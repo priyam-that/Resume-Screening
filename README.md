@@ -7,12 +7,13 @@
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 </p>
 
-An intelligent resume screening system that automatically categorizes resumes into 18+ specific technical roles using machine learning and rule-based classification. Features include a CLI tool, web interface, and comprehensive role database with certifications and salary information.
+An intelligent resume screening system that automatically categorizes resumes into 100+ professional roles using machine learning and rule-based classification. Features include a CLI tool, web interface, and comprehensive role database with certifications and salary information. **Get top 3 recommended positions for any resume!**
 
 ## ✨ Features
 
 ### 🤖 **Smart Classification**
-- **18 specialized tech roles** including Frontend, Backend, Full Stack, DevOps, ML Engineer, Data Scientist, Cloud Architect, and more
+- **100+ professional roles** across Tech, Engineering, Finance, Marketing, Sales, HR, Creative, and Operations
+- **Top 3 recommendations** for every resume with match scores
 - **Hybrid approach**: Combines ML model (TF-IDF + Logistic Regression) with keyword-based rules
 - **High accuracy** with balanced class weights and role-specific keyword matching
 
@@ -75,25 +76,45 @@ This will:
 
 ### 1️⃣ Command Line Interface (Recommended)
 
-**Basic prediction:**
+**Basic prediction (shows top 3 matches):**
 ```bash
-python predict_cli.py "5 years Python experience, Django, REST APIs, PostgreSQL"
-# Output: Backend Developer
-```
-
-**Verbose mode (full details):**
-```bash
-python predict_cli.py -v "React, TypeScript, Next.js, 4 years frontend experience"
+python predict_cli.py "5 years Python, Django, REST APIs, PostgreSQL, Docker, AWS"
 ```
 
 **Output:**
 ```
-Predicted Role: Frontend Developer
-Description: Builds user-facing web applications with modern frameworks and responsive design
-Experience Level: junior-senior
-Salary Range: 60k-150k
-Required Skills: JavaScript/TypeScript, React/Vue/Angular, HTML5/CSS3, REST APIs, Git
-Relevant Certifications: AWS Certified Developer, Google Mobile Web Specialist, Meta Front-End Developer
+Top 3 matching positions:
+  1. Backend Developer (Match Score: 6)
+  2. DevOps Engineer (Match Score: 4)
+  3. Full Stack Developer (Match Score: 3)
+```
+
+**Verbose mode (full details for top 3):**
+```bash
+python predict_cli.py -v "React, TypeScript, Next.js, HTML, CSS, JavaScript"
+```
+
+**Output:**
+```
+================================================================================
+TOP 3 RECOMMENDED POSITIONS FOR YOUR RESUME
+================================================================================
+
+#1 - Frontend Developer (Match Score: 6)
+--------------------------------------------------------------------------------
+📋 Description: Builds user-facing web applications with modern frameworks
+💼 Experience Level: junior-senior
+💰 Salary Range: $60k-150k
+🛠️  Required Skills: JavaScript/TypeScript, React/Vue/Angular, HTML5/CSS3
+📜 Relevant Certifications: AWS Certified Developer, Meta Front-End Developer
+
+#2 - Full Stack Developer (Match Score: 3)
+...
+```
+
+**Customize number of recommendations:**
+```bash
+python predict_cli.py -v -t 5 "your resume text"  # Show top 5 matches
 ```
 
 **Read from file:**
@@ -111,8 +132,9 @@ streamlit run app.py
 
 Then open `http://localhost:8501` in your browser and:
 - Paste resume text
-- Click "Predict Category"
-- View predicted role with metrics, skills, and certifications
+- Click "Analyze Resume & Get Recommendations"
+- View **top 3 recommended positions** with match scores, descriptions, skills, certifications, and salary ranges
+- Expandable cards for each position
 
 ### 3️⃣ Python API
 
@@ -141,6 +163,7 @@ print(f"Predicted Role: {prediction}")
 | **Backend Developer** | Node.js, Django, Flask, FastAPI, GraphQL | AWS Developer, Azure Developer |
 | **Full Stack Developer** | MERN/MEAN stack, React + Node.js | AWS Solutions Architect |
 | **Mobile Developer** | React Native, Flutter, Swift, Kotlin | Google Android, Apple iOS Developer |
+| **AI Engineer** | LLMs, GPT, LangChain, RAG, Vector DBs | AWS AI Practitioner, Microsoft AI Engineer |
 | **Machine Learning Engineer** | TensorFlow, PyTorch, MLOps | AWS ML Specialty, TensorFlow Developer |
 | **Data Scientist** | Python, pandas, Statistics, Tableau | Google Data Analytics, IBM Data Science |
 | **Data Engineer** | Spark, Airflow, ETL, Snowflake | AWS Data Analytics, Databricks |

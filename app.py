@@ -30,11 +30,11 @@ def load_role_database():
 
 
 st.title("Resume Screening App")
-st.write("Paste a resume below to predict its category and get detailed role information.")
+st.write("Paste a resume below to get the top 3 recommended positions with detailed information.")
 
-resume_text = st.text_area("Resume text", height=300)
+resume_text = st.text_area("Resume text", height=300, placeholder="Paste your resume here...")
 
-if st.button("Predict Category"):
+if st.button("Analyze Resume & Get Recommendations"):
     if not resume_text.strip():
         st.warning("Please paste a resume first.")
     else:
@@ -46,6 +46,8 @@ if st.button("Predict Category"):
         # Match against role database
         text_low = cleaned.lower()
         
+        top_matches = []
+        
         if role_db is not None:
             # Calculate match score for each role
             role_scores = {}
@@ -55,34 +57,46 @@ if st.button("Predict Category"):
                 if score > 0:
                     role_scores[row['role_name']] = score
             
-            # Override if strong match
+            # Get top 3 matches
             if role_scores:
-                best_role = max(role_scores.items(), key=lambda x: x[1])
-                if best_role[1] >= 3:
-                    pred = best_role[0]
+                sorted_roles = sorted(role_scores.items(), key=lambda x: x[1], reverse=True)
+                top_matches = sorted_roles[:3]
             
-            # Display detailed info
-            role_info = role_db[role_db['role_name'] == pred]
-            if not role_info.empty:
-                info = role_info.iloc[0]
-                st.success(f"**Predicted Role:** {pred}")
+            # Display top 3 recommendations
+            if top_matches:
+                st.success(f"✅ Analysis Complete! Here are your top {len(top_matches)} recommended positions:")
                 
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.metric("Experience Level", info['experience_level'])
-                    st.metric("Salary Range", info['salary_range'])
+                for rank, (role_name, score) in enumerate(top_matches, 1):
+                    role_info = role_db[role_db['role_name'] == role_name]
+                    if not role_info.empty:
+                        info = role_info.iloc[0]
+                        
+                        with st.expander(f"#{rank} - {role_name} (Match Score: {score})", expanded=(rank==1)):
+                            col1, col2 = st.columns(2)
+                            with col1:
+                                st.metric("Experience Level", info['experience_level'].title())
+                                st.metric("Salary Range", f"${info['salary_range']}")
+                                st.metric("Match Score", f"{score} keywords")
+                            
+                            with col2:
+                                st.write("**📋 Description:**")
+                                st.info(info['description'])
+                            
+                            st.write("**🛠️ Required Skills:**")
+                            skills = info['required_skills'].split(',')
+                            st.write(", ".join([f"`{s.strip()}`" for s in skills]))
+                            
+                            st.write("**📜 Relevant Certifications:**")
+                            certs = info['certifications'].split(',')
+                            for cert in certs:
+                                st.write(f"• {cert.strip()}")
                 
-                with col2:
-                    st.write("**Description:**")
-                    st.write(info['description'])
+                # Summary recommendation
+                st.markdown("---")
+                st.markdown("### 💡 Recommendation")
+                best_match = top_matches[0][0]
+                st.write(f"Based on your resume, **{best_match}** is the strongest match for your skills and experience.")
                 
-                st.write("**Required Skills:**")
-                st.info(info['required_skills'])
-                
-                st.write("**Relevant Certifications:**")
-                certs = info['certifications'].split(',')
-                for cert in certs:
-                    st.write(f"• {cert.strip()}")
             else:
                 st.success(f"Predicted category: {pred}")
         else:

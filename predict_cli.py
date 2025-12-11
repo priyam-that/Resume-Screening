@@ -43,6 +43,13 @@ def main(argv=None):
         action="store_true",
         help="Show detailed information including certifications and skills",
     )
+    parser.add_argument(
+        "--top",
+        "-t",
+        type=int,
+        default=3,
+        help="Number of top matching roles to show (default: 3)",
+    )
     args = parser.parse_args(argv)
 
     if args.text:
@@ -64,6 +71,8 @@ def main(argv=None):
     # Match against role database using keywords
     text_low = cleaned.lower()
     
+    top_matches = []
+    
     if role_db is not None:
         # Calculate match score for each role in database
         role_scores = {}
@@ -73,27 +82,38 @@ def main(argv=None):
             if score > 0:
                 role_scores[row['role_name']] = score
         
-        # Find best match
+        # Get top N matches
         if role_scores:
-            best_role = max(role_scores.items(), key=lambda x: x[1])
-            # Override if we have strong evidence (3+ matches)
-            if best_role[1] >= 3:
-                pred = best_role[0]
+            sorted_roles = sorted(role_scores.items(), key=lambda x: x[1], reverse=True)
+            top_matches = sorted_roles[:args.top]
+            
+            # Use the best match as primary prediction if strong evidence
+            if top_matches[0][1] >= 3:
+                pred = top_matches[0][0]
     
-    # Print result
-    if args.verbose and role_db is not None:
-        # Show detailed info
-        role_info = role_db[role_db['role_name'] == pred]
-        if not role_info.empty:
-            info = role_info.iloc[0]
-            print(f"Predicted Role: {pred}")
-            print(f"Description: {info['description']}")
-            print(f"Experience Level: {info['experience_level']}")
-            print(f"Salary Range: {info['salary_range']}")
-            print(f"Required Skills: {info['required_skills']}")
-            print(f"Relevant Certifications: {info['certifications']}")
-        else:
-            print(pred)
+    # Print results
+    if args.verbose and role_db is not None and top_matches:
+        print(f"{'='*80}")
+        print(f"TOP {len(top_matches)} RECOMMENDED POSITIONS FOR YOUR RESUME")
+        print(f"{'='*80}\n")
+        
+        for rank, (role_name, score) in enumerate(top_matches, 1):
+            role_info = role_db[role_db['role_name'] == role_name]
+            if not role_info.empty:
+                info = role_info.iloc[0]
+                print(f"#{rank} - {role_name} (Match Score: {score})")
+                print(f"{'-'*80}")
+                print(f"📋 Description: {info['description']}")
+                print(f"💼 Experience Level: {info['experience_level']}")
+                print(f"💰 Salary Range: ${info['salary_range']}")
+                print(f"🛠️  Required Skills: {info['required_skills']}")
+                print(f"📜 Relevant Certifications: {info['certifications']}")
+                print(f"\n")
+    elif top_matches:
+        # Show just the role names
+        print(f"Top {len(top_matches)} matching positions:")
+        for rank, (role_name, score) in enumerate(top_matches, 1):
+            print(f"  {rank}. {role_name} (Match Score: {score})")
     else:
         print(pred)
 
