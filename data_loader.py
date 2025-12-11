@@ -95,7 +95,7 @@ def load_all_data() -> pd.DataFrame:
     all_data = []
     
     # Load existing CSV if it exists at root
-    root_csv = BASE_DIR / "resume_dataset.csv"
+    root_csv = BASE_DIR / "data" / "resume_dataset.csv"
     if root_csv.exists():
         df = load_csv_data(root_csv)
         all_data.append(df)

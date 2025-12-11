@@ -12,7 +12,7 @@ from preprocessing import clean_resume
 
 
 BASE_DIR = Path(__file__).parent
-DATA_PATH = BASE_DIR / "resume_dataset.csv"
+DATA_PATH = BASE_DIR / "data" / "resume_dataset.csv"
 MODEL_DIR = BASE_DIR / "models"
 MODEL_DIR.mkdir(exist_ok=True)
 MODEL_PATH = MODEL_DIR / "resume_classifier.joblib"

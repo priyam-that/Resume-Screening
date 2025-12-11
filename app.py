@@ -9,7 +9,7 @@ from preprocessing import clean_resume
 
 BASE_DIR = Path(__file__).parent
 MODEL_PATH = BASE_DIR / "models" / "resume_classifier.joblib"
-ROLE_DB_PATH = BASE_DIR / "role_database.csv"
+ROLE_DB_PATH = BASE_DIR / "data" / "role_database.csv"
 
 
 @st.cache_resource
