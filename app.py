@@ -6,6 +6,13 @@ import streamlit as st
 
 from preprocessing import clean_resume
 
+try:
+    from skill_extractor import extract_skills
+    from embedding_matcher import enrich_skills, get_top_skills
+    SKILLS_AVAILABLE = True
+except ImportError:
+    SKILLS_AVAILABLE = False
+
 
 BASE_DIR = Path(__file__).parent
 MODEL_PATH = BASE_DIR / "models" / "resume_classifier.joblib"
@@ -23,7 +30,6 @@ def load_model():
 
 @st.cache_data
 def load_role_database():
-    """Load the role database with descriptions, certifications, and skills."""
     if not ROLE_DB_PATH.exists():
         return None
     return pd.read_csv(ROLE_DB_PATH)
@@ -43,7 +49,16 @@ if st.button("Analyze Resume & Get Recommendations"):
         cleaned = clean_resume(resume_text)
         pred = model.predict([cleaned])[0]
         
-        # Match against role database
+        extracted_skills = None
+        enriched_skills = None
+        if SKILLS_AVAILABLE:
+            with st.spinner("🔍 Extracting skills..."):
+                try:
+                    extracted_skills = extract_skills(resume_text)
+                    enriched_skills = enrich_skills(extracted_skills)
+                except Exception as e:
+                    st.warning(f"Skill extraction unavailable: {e}")
+        
         text_low = cleaned.lower()
         
         top_matches = []
@@ -101,4 +116,40 @@ if st.button("Analyze Resume & Get Recommendations"):
                 st.success(f"Predicted category: {pred}")
         else:
             st.success(f"Predicted category: {pred}")
+        
+        if SKILLS_AVAILABLE and enriched_skills:
+            st.markdown("---")
+            st.markdown("### 🔧 Extracted Skills")
+            
+            try:
+                top_skills = get_top_skills(enriched_skills, top_n=25)
+                
+                if top_skills:
+                    skill_categories = {}
+                    for skill in top_skills:
+                        cat = skill['category']
+                        if cat not in skill_categories:
+                            skill_categories[cat] = []
+                        skill_categories[cat].append(skill)
+                    
+                    categories_list = sorted(skill_categories.items())
+                    num_cols = min(3, len(categories_list))
+                    cols = st.columns(num_cols)
+                    
+                    for idx, (category, skills) in enumerate(categories_list):
+                        with cols[idx % num_cols]:
+                            st.write(f"**{category.replace('_', ' ').title()}**")
+                            for skill in skills[:8]:
+                                confidence_pct = int(skill['confidence'] * 100)
+                                if confidence_pct >= 90:
+                                    color = "🟢"
+                                elif confidence_pct >= 70:
+                                    color = "🟡"
+                                else:
+                                    color = "🔵"
+                                st.write(f"{color} {skill['canonical']}")
+                else:
+                    st.info("No specific skills detected")
+            except Exception as e:
+                st.info(f"Skill display error: {e}")
 
