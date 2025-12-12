@@ -30,7 +30,6 @@ def load_model():
 
 @st.cache_data
 def load_role_database():
-    """Load the role database with descriptions, certifications, and skills."""
     if not ROLE_DB_PATH.exists():
         return None
     return pd.read_csv(ROLE_DB_PATH)

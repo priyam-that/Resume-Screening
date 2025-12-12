@@ -1,11 +1,6 @@
-"""
-Quick test script for skill extraction and matching (lightweight version).
-"""
-
 from skill_extractor import extract_skills
 from embedding_matcher import match_skill_to_canonical, enrich_skills
 
-# Test resume text
 test_resume = """
 Senior Software Engineer with 5 years of experience in Python, JavaScript, and React.
 Expertise in machine learning using TensorFlow and PyTorch. 
@@ -18,7 +13,6 @@ print("=" * 60)
 print("Testing Lightweight Skill Extraction & Matching")
 print("=" * 60)
 
-# Test skill extraction
 print("\n1. Extracting skills from resume...")
 extracted = extract_skills(test_resume)
 
@@ -40,14 +34,13 @@ test_skills = [
     "tensorflow",
     "aws",
     "mongodb",
-    "deep learning"  # Fuzzy match test
+    "deep learning"
 ]
 
 for skill in test_skills:
     canonical, confidence = match_skill_to_canonical(skill)
     print(f"\n  '{skill}' → '{canonical}' (confidence: {confidence:.2f})")
 
-# Test enrichment
 print("\n" + "=" * 60)
 print("3. Testing skill enrichment:")
 print("=" * 60)
@@ -55,7 +48,6 @@ print("=" * 60)
 enriched = enrich_skills(extracted)
 print(f"\nEnriched {sum(len(v) for v in enriched.values())} total skills")
 
-# Show top enriched skills
 from embedding_matcher import get_top_skills
 top = get_top_skills(enriched, top_n=10)
 
