@@ -3,19 +3,34 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python">
   <img src="https://img.shields.io/badge/Machine%20Learning-scikit--learn-orange.svg" alt="ML">
+  <img src="https://img.shields.io/badge/NLP-SpaCy%20(optional)-blueviolet.svg" alt="NLP">
   <img src="https://img.shields.io/badge/Framework-Streamlit-red.svg" alt="Streamlit">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License">
 </p>
 
-An intelligent resume screening system that automatically categorizes resumes into 100+ professional roles using machine learning and rule-based classification. Features include a CLI tool, web interface, and comprehensive role database with certifications and salary information. **Get top 3 recommended positions for any resume!**
+A **lightweight NLP resume engine** that automatically categorizes resumes into 100+ professional roles and extracts 300+ skills using machine learning, semantic matching, and intelligent keyword analysis. Features CLI tool, web interface, and comprehensive role database. **No PyTorch, no heavy dependencies!**
 
-## ✨ Features
+## 🚀 New Features (2025 Update)
+
+- ✅ **NLP Skill Extraction**: Automatically identifies 300+ technical and soft skills
+- ✅ **Semantic Matching**: Fuzzy skill matching using TF-IDF (e.g., "reactjs" → "react")
+- ✅ **Lightweight Architecture**: Works with or without SpaCy (~100-125MB total)
+- ✅ **Top 3 Recommendations**: Get multiple position matches with confidence scores
+- ✅ **20 Skill Categories**: Programming, ML, Cloud, DevOps, Databases, and more
+
+## ✨ Core Features
 
 ### 🤖 **Smart Classification**
 - **100+ professional roles** across Tech, Engineering, Finance, Marketing, Sales, HR, Creative, and Operations
 - **Top 3 recommendations** for every resume with match scores
 - **Hybrid approach**: Combines ML model (TF-IDF + Logistic Regression) with keyword-based rules
 - **High accuracy** with balanced class weights and role-specific keyword matching
+
+### 🧠 **NLP-Powered Skill Extraction**
+- **300+ skills** organized in 20 categories (programming languages, frameworks, cloud, etc.)
+- **Smart extraction**: Multi-word patterns, single tokens, and noun chunks
+- **Fuzzy matching**: Maps variant names to canonical forms ("PyTorch Lightning" → "pytorch")
+- **Confidence scores**: Shows extraction accuracy for each skill
 
 ### 📊 **Rich Role Database**
 - Detailed role information stored in `role_database.csv`
@@ -29,13 +44,14 @@ An intelligent resume screening system that automatically categorizes resumes in
 
 ### 🖥️ **Multiple Interfaces**
 - **CLI Tool**: Quick predictions from terminal with verbose mode
-- **Web App**: Interactive Streamlit interface with visual metrics
+- **Web App**: Interactive Streamlit interface with visual skill badges
 - **Python API**: Import and use in your own scripts
 
-### 🔧 **Extensible**
-- Easily add new roles by editing CSV
+### 🔧 **Extensible & Lightweight**
+- Easily add new roles and skills by editing JSON/CSV files
 - Support for multiple data formats (CSV, JSON, text files)
 - Modular architecture for custom extensions
+- **No GPU required**, fast CPU-only inference
 
 ---
 

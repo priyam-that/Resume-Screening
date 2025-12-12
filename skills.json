@@ -1,0 +1,95 @@
+{
+  "programming_languages": [
+    "python", "java", "javascript", "typescript", "c++", "c#", "ruby", "php", "swift", "kotlin",
+    "go", "rust", "r", "matlab", "sql", "vba", "scala", "groovy", "perl", "lua"
+  ],
+  "web_frameworks": [
+    "react", "angular", "vue", "next.js", "svelte", "express", "django", "flask", "fastapi",
+    "spring", "spring boot", "laravel", "ruby on rails", "asp.net", "graphql", "node.js"
+  ],
+  "databases": [
+    "sql", "mysql", "postgresql", "mongodb", "redis", "cassandra", "dynamodb", "oracle",
+    "sql server", "elasticsearch", "neo4j", "firebase", "bigquery", "snowflake", "redshift"
+  ],
+  "machine_learning": [
+    "machine learning", "deep learning", "neural networks", "tensorflow", "pytorch", "keras",
+    "scikit-learn", "xgboost", "opencv", "nlp", "natural language processing", "computer vision",
+    "nlp", "transformers", "bert", "gpt", "hugging face", "mlops", "model deployment"
+  ],
+  "data_tools": [
+    "pandas", "numpy", "matplotlib", "seaborn", "plotly", "ggplot2", "tableau", "power bi",
+    "looker", "alteryx", "data analysis", "statistics", "sql", "spark", "hadoop"
+  ],
+  "cloud_platforms": [
+    "aws", "amazon web services", "azure", "gcp", "google cloud", "cloud computing",
+    "aws ec2", "aws s3", "lambda", "rds", "dynamodb", "azure vm", "app service",
+    "google compute engine", "cloud storage", "bigquery"
+  ],
+  "devops_tools": [
+    "docker", "kubernetes", "ci/cd", "jenkins", "gitlab ci", "github actions", "terraform",
+    "ansible", "prometheus", "grafana", "elk stack", "datadog", "newrelic", "splunk",
+    "git", "github", "gitlab", "bitbucket"
+  ],
+  "mobile_development": [
+    "ios", "android", "swift", "kotlin", "react native", "flutter", "xamarin", "phonegap",
+    "cordova", "app store", "play store", "mobile ui", "mobile ux"
+  ],
+  "data_engineering": [
+    "etl", "data pipeline", "airflow", "spark", "hadoop", "kafka", "hive", "presto",
+    "data warehouse", "snowflake", "redshift", "bigquery", "dbt", "informatica", "talend"
+  ],
+  "ai_llm_tools": [
+    "llm", "large language models", "gpt", "gpt-4", "claude", "langchain", "openai",
+    "hugging face", "prompt engineering", "rag", "retrieval augmented generation",
+    "vector database", "pinecone", "weaviate", "chroma", "milvus", "chatbot", "generative ai"
+  ],
+  "blockchain": [
+    "blockchain", "solidity", "ethereum", "smart contracts", "web3", "web3.js", "hardhat",
+    "truffle", "defi", "cryptocurrency", "bitcoin", "hyperledger", "consensus", "cryptography"
+  ],
+  "security": [
+    "cybersecurity", "penetration testing", "owasp", "ssl/tls", "encryption", "firewall",
+    "ids/ips", "siem", "vulnerability assessment", "security audit", "ethical hacking",
+    "network security", "application security", "compliance", "gdpr", "hipaa", "sox"
+  ],
+  "testing": [
+    "qa", "quality assurance", "selenium", "cypress", "jest", "junit", "pytest", "mocha",
+    "test automation", "manual testing", "regression testing", "performance testing",
+    "load testing", "jmeter", "loadrunner", "test management", "zephyr", "testcase"
+  ],
+  "soft_skills": [
+    "agile", "scrum", "kanban", "leadership", "communication", "problem solving",
+    "project management", "team management", "stakeholder management", "negotiation",
+    "presentation", "documentation", "collaboration", "critical thinking"
+  ],
+  "product_business": [
+    "product management", "product strategy", "roadmap", "user research", "market analysis",
+    "competitive analysis", "business analysis", "requirements gathering", "user stories",
+    "jira", "confluence", "asana", "monday.com", "notion"
+  ],
+  "frontend_tools": [
+    "html", "css", "bootstrap", "tailwind", "sass", "less", "webpack", "babel",
+    "npm", "yarn", "package management", "responsive design", "ui design", "ux design",
+    "figma", "sketch", "adobe xd", "wireframing", "prototyping"
+  ],
+  "backend_patterns": [
+    "rest api", "graphql", "microservices", "monolithic", "serverless", "lambda",
+    "message queue", "rabbitmq", "kafka", "pubsub", "event driven", "cqrs", "saga"
+  ],
+  "monitoring_observability": [
+    "monitoring", "observability", "logging", "metrics", "tracing", "prometheus",
+    "grafana", "datadog", "new relic", "splunk", "elk stack", "cloudwatch", "stackdriver"
+  ],
+  "infrastructure": [
+    "infrastructure as code", "iac", "terraform", "cloudformation", "arm templates",
+    "ansible", "puppet", "chef", "vagrant", "networking", "dns", "load balancing"
+  ],
+  "communication": [
+    "slack", "microsoft teams", "zoom", "confluence", "wiki", "documentation",
+    "technical writing", "api documentation", "swagger", "openapi"
+  ],
+  "industry_specific": [
+    "healthcare", "fintech", "banking", "insurance", "retail", "ecommerce", "saas",
+    "b2b", "b2c", "erp", "crm", "hrms", "ats", "education", "manufacturing"
+  ]
+}
